@@ -1,0 +1,535 @@
+/* ==========================================================
+   TOKENS
+   ========================================================== */
+:root {
+    --bg: #171310;
+    --bg-elevated: #221c17;
+    --bg-elevated-2: #2a231c;
+    --text: #f3ebdd;
+    --text-muted: #b3a08c;
+    --accent: #c08a3e;
+    --accent-hover: #d9a257;
+    --accent-ink: #171310;
+    --line: #3a2f26;
+    --danger: #b24b3e;
+    --danger-hover: #c7604f;
+    --success: #6b8f5e;
+    --warning: #d2a24c;
+    --radius: 4px;
+    --font-display: 'Oswald', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100%;
+}
+
+body {
+    background-image:
+        radial-gradient(ellipse at top, rgba(192, 138, 62, 0.08), transparent 60%);
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4, .display-font {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text);
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+
+.text-muted-custom { color: var(--text-muted) !important; }
+.mono { font-family: var(--font-mono); }
+
+/* ==========================================================
+   NAVBAR
+   ========================================================== */
+.navbar-barbearia {
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--line);
+}
+
+.navbar-brand-custom {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 1.35rem;
+    color: var(--text) !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-brand-custom .brand-mark {
+    color: var(--accent);
+}
+
+.navbar-barbearia .nav-link {
+    color: var(--text-muted) !important;
+    font-family: var(--font-display);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem !important;
+}
+
+.navbar-barbearia .nav-link:hover,
+.navbar-barbearia .nav-link.active {
+    color: var(--accent) !important;
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+.btn-brass {
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: var(--accent-ink);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+    padding: 0.6rem 1.5rem;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-brass:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: var(--accent-ink);
+    transform: translateY(-1px);
+}
+
+.btn-outline-brass {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+    padding: 0.6rem 1.5rem;
+}
+
+.btn-outline-brass:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-danger-custom {
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.8rem;
+    border-radius: var(--radius);
+    padding: 0.4rem 1rem;
+}
+
+.btn-danger-custom:hover {
+    background: var(--danger);
+    color: var(--text);
+}
+
+/* ==========================================================
+   FORMS
+   ========================================================== */
+.form-barbearia label {
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.form-barbearia .form-control,
+.form-barbearia .form-select {
+    background: var(--bg-elevated-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: var(--radius);
+    padding: 0.65rem 0.85rem;
+}
+
+.form-barbearia .form-control:focus,
+.form-barbearia .form-select:focus {
+    background: var(--bg-elevated-2);
+    border-color: var(--accent);
+    color: var(--text);
+    box-shadow: 0 0 0 3px rgba(192, 138, 62, 0.2);
+}
+
+.form-barbearia .form-control::placeholder { color: #6e6152; }
+
+.form-barbearia .form-text { color: var(--text-muted); font-size: 0.8rem; }
+
+.auth-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 2.5rem;
+    max-width: 460px;
+    width: 100%;
+}
+
+.auth-shell {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.auth-eyebrow {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+/* ==========================================================
+   ALERTS
+   ========================================================== */
+.alert-barbearia {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--bg-elevated-2);
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.alert-barbearia.alert-danger-custom {
+    border-color: var(--danger);
+    color: #f2c9c2;
+}
+
+.alert-barbearia.alert-success-custom {
+    border-color: var(--success);
+    color: #d7e7cf;
+}
+
+/* ==========================================================
+   TICKET (elemento de assinatura)
+   Ficha de atendimento estilo senha de barbearia antiga
+   ========================================================== */
+.ticket {
+    position: relative;
+    display: flex;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 1.1rem;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.ticket:hover {
+    transform: translateX(2px);
+    border-color: var(--accent);
+}
+
+.ticket-stub {
+    width: 92px;
+    flex-shrink: 0;
+    background: var(--bg-elevated-2);
+    border-right: 1px dashed var(--line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
+    position: relative;
+}
+
+.ticket-stub::before,
+.ticket-stub::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--bg);
+    border-radius: 50%;
+    right: -8px;
+}
+
+.ticket-stub::before { top: -8px; }
+.ticket-stub::after { bottom: -8px; }
+
+.ticket-stub .ticket-day {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--accent);
+}
+
+.ticket-stub .ticket-month {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+.ticket-body {
+    flex: 1;
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.ticket-info .ticket-servico {
+    font-family: var(--font-display);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+}
+
+.ticket-info .ticket-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.ticket-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.stamp {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1.5px solid currentColor;
+    border-radius: 3px;
+    padding: 0.25rem 0.6rem;
+    transform: rotate(-3deg);
+    display: inline-block;
+}
+
+.stamp-pendente { color: var(--warning); }
+.stamp-confirmado { color: var(--success); }
+.stamp-concluido { color: var(--text-muted); }
+.stamp-cancelado { color: var(--danger); }
+.stamp-em_andamento { color: var(--accent); }
+.stamp-nao_compareceu { color: var(--danger); }
+
+/* ==========================================================
+   CARDS GERAIS (seleção de serviço/profissional)
+   ========================================================== */
+.pick-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.1rem;
+    cursor: pointer;
+    height: 100%;
+    transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.pick-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.pick-card.selected {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, rgba(192,138,62,0.12), transparent);
+    box-shadow: 0 0 0 1px var(--accent);
+}
+
+.pick-card .pick-title {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+}
+
+.pick-card .pick-sub {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.pick-card .pick-price {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+/* ==========================================================
+   STEPPER (agendamento.html)
+   ========================================================== */
+.stepper {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.stepper li {
+    flex: 1;
+    text-align: center;
+    padding: 0.9rem 0.5rem;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    position: relative;
+}
+
+.stepper li .step-num {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    margin-right: 0.4rem;
+}
+
+.stepper li.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+.stepper li.active .step-num { color: var(--accent); }
+
+.stepper li.done { color: var(--success); }
+.stepper li.done .step-num { color: var(--success); }
+
+/* ==========================================================
+   TIME SLOTS
+   ========================================================== */
+.slot-btn {
+    background: var(--bg-elevated-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: var(--font-mono);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.4rem;
+    font-size: 0.85rem;
+    transition: all 0.12s ease;
+}
+
+.slot-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+
+.slot-btn.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+}
+
+.slot-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+/* ==========================================================
+   EMPTY STATE
+   ========================================================== */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+}
+
+.empty-state .empty-icon {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+}
+
+/* ==========================================================
+   HERO (index.html)
+   ========================================================== */
+.hero {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(115deg, transparent, transparent 78px, rgba(192,138,62,0.05) 78px, rgba(192,138,62,0.05) 79px);
+    pointer-events: none;
+}
+
+.hero .eyebrow {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    line-height: 1.02;
+    margin: 1rem 0 1.5rem;
+}
+
+.hero h1 .accent-word { color: var(--accent); }
+
+.hero-lede {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 480px;
+    margin-bottom: 2rem;
+}
+
+.section-label {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+footer.site-footer {
+    border-top: 1px solid var(--line);
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+}
+
+/* Keyboard focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}

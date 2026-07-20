@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criar conta — Barbearia Gsz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="auth-shell">
+    <div class="auth-card" style="max-width: 540px;">
+        <a href="../index.html" class="navbar-brand-custom d-inline-flex mb-4">
+            <span class="brand-mark">✂</span> Barbearia Gsz
+        </a>
+
+        <span class="auth-eyebrow">Primeira vez aqui</span>
+        <h1 class="h3 mt-2 mb-4">Criar sua conta</h1>
+
+        <div id="alertBox" class="alert-barbearia alert-danger-custom p-3 mb-3 d-none" role="alert"></div>
+        <div id="successBox" class="alert-barbearia alert-success-custom p-3 mb-3 d-none" role="alert"></div>
+
+        <form id="registerForm" class="form-barbearia" novalidate>
+            <div class="mb-3">
+                <label for="nome">Nome completo</label>
+                <input type="text" class="form-control" id="nome" required minlength="3" placeholder="Seu nome">
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" required placeholder="voce@email.com">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" required placeholder="(11) 99999-0000">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="dataNascimento">Data de nascimento</label>
+                    <input type="date" class="form-control" id="dataNascimento">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="genero">Gênero</label>
+                    <select class="form-select" id="genero">
+                        <option value="">Prefiro não informar</option>
+                        <option value="MASCULINO">Masculino</option>
+                        <option value="FEMININO">Feminino</option>
+                        <option value="OUTRO">Outro</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="senha">Senha</label>
+                    <input type="password" class="form-control" id="senha" required minlength="6" placeholder="Mínimo 6 caracteres">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="confirmacaoSenha">Confirmar senha</label>
+                    <input type="password" class="form-control" id="confirmacaoSenha" required minlength="6" placeholder="Repita a senha">
+                </div>
+            </div>
+            <button type="submit" id="btnSubmit" class="btn btn-brass w-100 mt-2">Criar conta</button>
+        </form>
+
+        <p class="text-muted-custom text-center mt-4 mb-0">
+            Já tem conta? <a href="login.html">Entrar</a>
+        </p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+function mostrarErro(msg) {
+    const box = document.getElementById('alertBox');
+    box.textContent = msg;
+    box.classList.remove('d-none');
+    document.getElementById('successBox').classList.add('d-none');
+}
+
+if (isAuthenticated()) {
+    window.location.href = 'dashboard.html';
+}
+
+document.getElementById('registerForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    document.getElementById('alertBox').classList.add('d-none');
+
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const dataNascimento = document.getElementById('dataNascimento').value || null;
+    const genero = document.getElementById('genero').value || null;
+    const senha = document.getElementById('senha').value;
+    const confirmacaoSenha = document.getElementById('confirmacaoSenha').value;
+    const btn = document.getElementById('btnSubmit');
+
+    if (senha !== confirmacaoSenha) {
+        mostrarErro('As senhas não coincidem.');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Criando conta...';
+
+    try {
+        const response = await register({
+            nome, email, telefone, senha, dataNascimento, genero
+        });
+        const data = await parseJsonSafe(response);
+
+        if (!response.ok) {
+            mostrarErro(data?.message || 'Não foi possível criar sua conta. Verifique os dados.');
+            return;
+        }
+
+        document.getElementById('registerForm').reset();
+        const successBox = document.getElementById('successBox');
+        successBox.textContent = 'Conta criada com sucesso! Redirecionando para o login...';
+        successBox.classList.remove('d-none');
+
+        setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+
+    } catch (err) {
+        mostrarErro('Não foi possível conectar ao servidor. Tente novamente.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Criar conta';
+    }
+});
+</script>
+</body>
+</html>

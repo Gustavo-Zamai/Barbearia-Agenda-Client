@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar — Barbearia Gsz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="auth-shell">
+    <div class="auth-card">
+        <a href="../index.html" class="navbar-brand-custom d-inline-flex mb-4">
+            <span class="brand-mark">✂</span> Barbearia Gsz
+        </a>
+
+        <span class="auth-eyebrow">Bem-vindo de volta</span>
+        <h1 class="h3 mt-2 mb-4">Entrar na conta</h1>
+
+        <div id="alertBox" class="alert-barbearia alert-danger-custom p-3 mb-3 d-none" role="alert"></div>
+
+        <form id="loginForm" class="form-barbearia" novalidate>
+            <div class="mb-3">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" required autocomplete="email" placeholder="voce@email.com">
+            </div>
+            <div class="mb-3">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" required autocomplete="current-password" placeholder="••••••••">
+            </div>
+            <button type="submit" id="btnSubmit" class="btn btn-brass w-100 mt-2">Entrar</button>
+        </form>
+
+        <p class="text-muted-custom text-center mt-4 mb-0">
+            Ainda não tem conta? <a href="register.html">Cadastre-se</a>
+        </p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script>
+function mostrarErro(msg) {
+    const box = document.getElementById('alertBox');
+    box.textContent = msg;
+    box.classList.remove('d-none');
+}
+
+function esconderErro() {
+    document.getElementById('alertBox').classList.add('d-none');
+}
+
+// Se já está logado, manda direto pro dashboard
+if (isAuthenticated()) {
+    window.location.href = 'dashboard.html';
+}
+
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    esconderErro();
+
+    const email = document.getElementById('email').value.trim();
+    const senha = document.getElementById('senha').value;
+    const btn = document.getElementById('btnSubmit');
+
+    btn.disabled = true;
+    btn.textContent = 'Entrando...';
+
+    try {
+        const response = await login(email, senha);
+        const data = await parseJsonSafe(response);
+
+        if (!response.ok) {
+            mostrarErro(data?.message || 'E-mail ou senha inválidos.');
+            return;
+        }
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('usuario', JSON.stringify(data));
+        window.location.href = 'dashboard.html';
+
+    } catch (err) {
+        mostrarErro('Não foi possível conectar ao servidor. Tente novamente.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Entrar';
+    }
+});
+</script>
+</body>
+</html>

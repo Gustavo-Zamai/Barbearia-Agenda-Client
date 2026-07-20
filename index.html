@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia Gsz — Agende seu horário</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-barbearia py-3">
+    <div class="container">
+        <a class="navbar-brand-custom" href="index.html">
+            <span class="brand-mark">✂</span> Barbearia Gsz
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" style="border-color: var(--line);">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navMain">
+            <div class="d-flex gap-2 mt-3 mt-md-0">
+                <a href="pages/login.html" class="btn btn-outline-brass">Entrar</a>
+                <a href="pages/register.html" class="btn btn-brass">Criar conta</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <span class="eyebrow">Desde sempre, no capricho</span>
+                <h1>Sua vez na<br><span class="accent-word">cadeira</span>, sem fila.</h1>
+                <p class="hero-lede">
+                    Escolha o serviço, o profissional e o horário — a gente guarda sua senha.
+                    Chegou, foi chamado, saiu no estilo.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="pages/register.html" class="btn btn-brass btn-lg">Marcar meu horário</a>
+                    <a href="pages/login.html" class="btn btn-outline-brass btn-lg">Já tenho conta</a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="ticket" style="transform: rotate(-2deg);">
+                    <div class="ticket-stub">
+                        <span class="ticket-day">17</span>
+                        <span class="ticket-month">Jul</span>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-info">
+                            <div class="ticket-servico">Corte + Barba</div>
+                            <div class="ticket-meta">14:30 · João Silva</div>
+                        </div>
+                        <span class="stamp stamp-confirmado">Confirmado</span>
+                    </div>
+                </div>
+                <div class="ticket" style="transform: rotate(1.5deg); margin-left: 2rem;">
+                    <div class="ticket-stub">
+                        <span class="ticket-day">19</span>
+                        <span class="ticket-month">Jul</span>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-info">
+                            <div class="ticket-servico">Sobrancelha</div>
+                            <div class="ticket-meta">09:00 · Carlos Oliveira</div>
+                        </div>
+                        <span class="stamp stamp-pendente">Pendente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-5 my-4">
+    <span class="section-label">Como funciona</span>
+    <div class="row g-4 mt-1">
+        <div class="col-md-4">
+            <div class="pick-card">
+                <div class="pick-title mono" style="color: var(--accent); font-size: 1.4rem;">01</div>
+                <div class="pick-title">Escolha o serviço</div>
+                <p class="text-muted-custom mb-0">Corte, barba, coloração e mais — veja preço e duração antes de marcar.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pick-card">
+                <div class="pick-title mono" style="color: var(--accent); font-size: 1.4rem;">02</div>
+                <div class="pick-title">Escolha o profissional</div>
+                <p class="text-muted-custom mb-0">Cada barbeiro tem sua especialidade. Escolha quem combina com você.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pick-card">
+                <div class="pick-title mono" style="color: var(--accent); font-size: 1.4rem;">03</div>
+                <div class="pick-title">Escolha o horário</div>
+                <p class="text-muted-custom mb-0">Veja a agenda em tempo real e pegue o horário que sobrar pra você.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <div class="container d-flex justify-content-between flex-wrap gap-2">
+        <span>© 2026 Barbearia Gsz</span>
+        <span class="mono">Aberto seg–sáb, 08:00–20:00</span>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

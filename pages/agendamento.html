@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novo agendamento — Barbearia Gsz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-barbearia py-3">
+    <div class="container">
+        <a class="navbar-brand-custom" href="dashboard.html">
+            <span class="brand-mark">✂</span> Barbearia Gsz
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" style="border-color: var(--line);">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navMain">
+            <ul class="navbar-nav align-items-md-center gap-1">
+                <li class="nav-item"><a class="nav-link" href="dashboard.html">Meus horários</a></li>
+                <li class="nav-item"><a class="nav-link active" href="agendamento.html">Agendar</a></li>
+                <li class="nav-item mt-2 mt-md-0 ms-md-3">
+                    <button class="btn btn-outline-brass btn-sm" onclick="logout()">Sair</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5" style="max-width: 900px;">
+    <span class="section-label">Nova senha</span>
+    <h1 class="h2 mb-4">Marcar horário</h1>
+
+    <ul class="stepper">
+        <li class="active" id="step1Tab"><span class="step-num">01</span>Serviço</li>
+        <li id="step2Tab"><span class="step-num">02</span>Profissional</li>
+        <li id="step3Tab"><span class="step-num">03</span>Data &amp; hora</li>
+        <li id="step4Tab"><span class="step-num">04</span>Confirmar</li>
+    </ul>
+
+    <div id="alertBox" class="alert-barbearia alert-danger-custom p-3 mb-3 d-none"></div>
+
+    <!-- Passo 1: Serviço -->
+    <div id="step1" class="step-panel">
+        <div id="listaServicos" class="row g-3">
+            <div class="text-muted-custom">Carregando serviços...</div>
+        </div>
+    </div>
+
+    <!-- Passo 2: Profissional -->
+    <div id="step2" class="step-panel d-none">
+        <div id="listaProfissionais" class="row g-3">
+            <div class="text-muted-custom">Carregando profissionais...</div>
+        </div>
+        <button class="btn btn-outline-brass mt-4" onclick="voltarPara(1)">← Voltar</button>
+    </div>
+
+    <!-- Passo 3: Data e hora -->
+    <div id="step3" class="step-panel d-none">
+        <div class="form-barbearia mb-4" style="max-width: 280px;">
+            <label for="dataAgendamento">Escolha o dia</label>
+            <input type="date" class="form-control" id="dataAgendamento">
+        </div>
+        <div id="listaHorarios" class="d-flex flex-wrap gap-2"></div>
+        <button class="btn btn-outline-brass mt-4" onclick="voltarPara(2)">← Voltar</button>
+    </div>
+
+    <!-- Passo 4: Confirmar -->
+    <div id="step4" class="step-panel d-none">
+        <div class="ticket mb-4" style="max-width: 480px;">
+            <div class="ticket-stub">
+                <span class="ticket-day" id="resumoDia">--</span>
+                <span class="ticket-month" id="resumoMes">---</span>
+            </div>
+            <div class="ticket-body">
+                <div class="ticket-info">
+                    <div class="ticket-servico" id="resumoServico">—</div>
+                    <div class="ticket-meta" id="resumoDetalhe">—</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-barbearia mb-4" style="max-width: 480px;">
+            <label for="observacoes">Observações (opcional)</label>
+            <textarea class="form-control" id="observacoes" rows="3" placeholder="Alguma preferência ou observação?"></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-brass" onclick="voltarPara(3)">← Voltar</button>
+            <button class="btn btn-brass" id="btnConfirmarAgendamento">Confirmar agendamento</button>
+        </div>
+    </div>
+
+    <!-- Sucesso -->
+    <div id="stepSucesso" class="step-panel d-none text-center py-5">
+        <div class="empty-icon mb-3" style="font-size: 3rem;">✂</div>
+        <h2 class="h3">Senha garantida!</h2>
+        <p class="text-muted-custom mb-4">Seu horário foi marcado com sucesso.</p>
+        <a href="dashboard.html" class="btn btn-brass">Ver meus horários</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/agendamento.js"></script>
+</body>
+</html>

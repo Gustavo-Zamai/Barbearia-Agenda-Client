@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meus horários — Barbearia Gsz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-barbearia py-3">
+    <div class="container">
+        <a class="navbar-brand-custom" href="dashboard.html">
+            <span class="brand-mark">✂</span> Barbearia Gsz
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" style="border-color: var(--line);">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navMain">
+            <ul class="navbar-nav align-items-md-center gap-1">
+                <li class="nav-item"><a class="nav-link active" href="dashboard.html">Meus horários</a></li>
+                <li class="nav-item"><a class="nav-link" href="agendamento.html">Agendar</a></li>
+                <li class="nav-item mt-2 mt-md-0 ms-md-3">
+                    <span class="text-muted-custom mono me-2" id="userNome" style="font-size: 0.85rem;"></span>
+                    <button class="btn btn-outline-brass btn-sm" onclick="logout()">Sair</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
+        <div>
+            <span class="section-label">Sua agenda</span>
+            <h1 class="h2 mb-0">Meus horários</h1>
+        </div>
+        <a href="agendamento.html" class="btn btn-brass">+ Novo agendamento</a>
+    </div>
+
+    <ul class="nav mb-4" style="border-bottom: 1px solid var(--line); gap: 0.5rem;">
+        <li class="nav-item">
+            <button class="nav-link active" id="tabFuturosBtn" onclick="mostrarAba('futuros')"
+                style="background:none; border:none; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em; font-size: .85rem; color: var(--accent); border-bottom: 2px solid var(--accent); padding: .6rem 1rem;">
+                Próximos
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="tabPassadosBtn" onclick="mostrarAba('passados')"
+                style="background:none; border:none; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em; font-size: .85rem; color: var(--text-muted); border-bottom: 2px solid transparent; padding: .6rem 1rem;">
+                Histórico
+            </button>
+        </li>
+    </ul>
+
+    <div id="loadingState" class="text-muted-custom text-center py-5">Carregando seus horários...</div>
+
+    <div id="listaFuturos" class="d-none"></div>
+    <div id="listaPassados" class="d-none"></div>
+</div>
+
+<!-- Modal cancelar -->
+<div class="modal fade" id="modalCancelar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background: var(--bg-elevated); border: 1px solid var(--line); color: var(--text);">
+            <div class="modal-header" style="border-color: var(--line);">
+                <h5 class="modal-title">Cancelar agendamento</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body form-barbearia">
+                <p class="text-muted-custom">Conta pra gente o motivo do cancelamento.</p>
+                <label for="motivoCancelamento">Motivo</label>
+                <textarea class="form-control" id="motivoCancelamento" rows="3" placeholder="Ex: imprevisto de última hora"></textarea>
+            </div>
+            <div class="modal-footer" style="border-color: var(--line);">
+                <button type="button" class="btn btn-outline-brass" data-bs-dismiss="modal">Voltar</button>
+                <button type="button" class="btn btn-danger-custom" id="btnConfirmarCancelamento">Confirmar cancelamento</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>
