@@ -56,7 +56,8 @@ function esconderErro() {
 
 // Se já está logado, manda direto pro dashboard
 if (isAuthenticated()) {
-    window.location.href = 'dashboard.html';
+    const usuario = getCurrentUser();
+    window.location.href = usuario?.role === 'ADMIN' ? 'admin/dashboard.html' : 'dashboard.html';
 }
 
 document.getElementById('loginForm').addEventListener('submit', async function (e) {
@@ -81,7 +82,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
         localStorage.setItem('token', data.token);
         localStorage.setItem('usuario', JSON.stringify(data));
-        window.location.href = 'dashboard.html';
+        window.location.href = data.role === 'ADMIN' ? 'admin/dashboard.html' : 'dashboard.html';
 
     } catch (err) {
         mostrarErro('Não foi possível conectar ao servidor. Tente novamente.');

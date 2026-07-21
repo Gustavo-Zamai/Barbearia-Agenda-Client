@@ -25,7 +25,11 @@ function register(usuario) {
 function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    window.location.href = 'index.html';
+    const path = window.location.pathname;
+    const destino = path.includes('/admin/') ? '../../index.html'
+        : path.includes('/pages/') ? '../index.html'
+        : 'index.html';
+    window.location.href = destino;
 }
 
 function isAuthenticated() {
@@ -88,7 +92,8 @@ async function fetchWithAuth(url, options = {}) {
     if (response.status === 401 || (response.status === 403 && !isAuthenticated())) {
         localStorage.removeItem('token');
         localStorage.removeItem('usuario');
-        window.location.href = 'login.html';
+        const path = window.location.pathname;
+        window.location.href = path.includes('/admin/') ? '../login.html' : 'login.html';
         throw new Error('Sessão expirada. Faça login novamente.');
     }
 
@@ -96,12 +101,13 @@ async function fetchWithAuth(url, options = {}) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const protectedPages = ['dashboard.html', 'agendamento.html'];
+    const protectedPages = ['dashboard.html', 'agendamento.html', 'agendamentos.html', 'profissionais.html'];
     const currentPage = window.location.pathname.split('/').pop();
 
     if (protectedPages.includes(currentPage)) {
         if (!isAuthenticated()) {
-            window.location.href = 'login.html';
+            const destino = window.location.pathname.includes('/admin/') ? '../login.html' : 'login.html';
+            window.location.href = destino;
         }
     }
 });

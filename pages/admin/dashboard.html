@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin — Barbearia Gsz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-barbearia py-3">
+    <div class="container">
+        <a class="navbar-brand-custom" href="dashboard.html">
+            <span class="brand-mark">✂</span> Barbearia Gsz <span class="mono text-muted-custom" style="font-size: .7rem; margin-left: .4rem;">ADMIN</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" style="border-color: var(--line);">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navMain">
+            <ul class="navbar-nav align-items-md-center gap-1">
+                <li class="nav-item"><a class="nav-link active" href="dashboard.html">Painel</a></li>
+                <li class="nav-item"><a class="nav-link" href="agendamentos.html">Agendamentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="profissionais.html">Profissionais</a></li>
+                <li class="nav-item mt-2 mt-md-0 ms-md-3">
+                    <button class="btn btn-outline-brass btn-sm" onclick="logout()">Sair</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <span class="section-label">Visão geral</span>
+    <h1 class="h2 mb-4">Painel administrativo</h1>
+
+    <div id="alertBox" class="alert-barbearia alert-danger-custom p-3 mb-3 d-none"></div>
+
+    <!-- Métricas rápidas -->
+    <div class="row g-3 mb-4" id="metricasRow">
+        <div class="col-6 col-md-3">
+            <div class="pick-card text-center">
+                <div class="pick-price mono" id="mClientes">—</div>
+                <div class="pick-sub mt-1">Clientes ativos</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="pick-card text-center">
+                <div class="pick-price mono" id="mProfissionais">—</div>
+                <div class="pick-sub mt-1">Profissionais</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="pick-card text-center">
+                <div class="pick-price mono" id="mServicos">—</div>
+                <div class="pick-sub mt-1">Serviços ativos</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="pick-card text-center">
+                <div class="pick-price mono" id="mAgendamentosHoje">—</div>
+                <div class="pick-sub mt-1">Agendamentos hoje</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Faturamento -->
+    <div class="pick-card mb-5">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-3">
+            <div>
+                <div class="pick-sub">Faturamento (agendamentos concluídos)</div>
+                <div class="pick-price mono" style="font-size: 1.8rem;" id="faturamentoTotal">R$ —</div>
+            </div>
+            <form id="formPeriodo" class="form-barbearia d-flex align-items-end gap-2">
+                <div>
+                    <label for="dataInicio">De</label>
+                    <input type="date" class="form-control" id="dataInicio">
+                </div>
+                <div>
+                    <label for="dataFim">Até</label>
+                    <input type="date" class="form-control" id="dataFim">
+                </div>
+                <button type="submit" class="btn btn-brass">Calcular</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Agendamentos de hoje -->
+    <span class="section-label">Hoje</span>
+    <h2 class="h4 mb-3">Agendamentos do dia</h2>
+    <div id="listaHoje">
+        <div class="text-muted-custom">Carregando...</div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/config.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/admin-api.js"></script>
+<script src="../../js/admin-dashboard.js"></script>
+</body>
+</html>
