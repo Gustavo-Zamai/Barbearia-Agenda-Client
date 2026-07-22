@@ -101,7 +101,7 @@ async function fetchWithAuth(url, options = {}) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const protectedPages = ['dashboard.html', 'agendamento.html', 'agendamentos.html', 'profissionais.html'];
+    const protectedPages = ['dashboard.html', 'agendamento.html', 'agendamentos.html', 'profissionais.html', 'pagamentos.html'];
     const currentPage = window.location.pathname.split('/').pop();
 
     if (protectedPages.includes(currentPage)) {

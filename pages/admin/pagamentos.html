@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagamentos — Painel Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-barbearia py-3">
+    <div class="container">
+        <a class="navbar-brand-custom" href="dashboard.html">
+            <span class="brand-mark">✂</span> Barbearia Gsz <span class="mono text-muted-custom" style="font-size: .7rem; margin-left: .4rem;">ADMIN</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" style="border-color: var(--line);">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navMain">
+            <ul class="navbar-nav align-items-md-center gap-1">
+                <li class="nav-item"><a class="nav-link" href="dashboard.html">Painel</a></li>
+                <li class="nav-item"><a class="nav-link" href="agendamentos.html">Agendamentos</a></li>
+                <li class="nav-item"><a class="nav-link" href="profissionais.html">Profissionais</a></li>
+                <li class="nav-item"><a class="nav-link active" href="pagamentos.html">Pagamentos</a></li>
+                <li class="nav-item mt-2 mt-md-0 ms-md-3">
+                    <button class="btn btn-outline-brass btn-sm" onclick="logout()">Sair</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <span class="section-label">Financeiro</span>
+    <h1 class="h2 mb-4">Pagamentos</h1>
+
+    <div id="alertBox" class="alert-barbearia alert-danger-custom p-3 mb-3 d-none"></div>
+    <div id="avisoAtrasados" class="alert-barbearia p-3 mb-4 d-none" style="border-color: var(--warning); color: var(--warning);"></div>
+
+    <ul class="nav mb-4" style="border-bottom: 1px solid var(--line); gap: 0.5rem;" id="tabs">
+        <li class="nav-item"><button class="tab-btn active" data-status="PENDENTE">Pendentes</button></li>
+        <li class="nav-item"><button class="tab-btn" data-status="PAGO">Pagos</button></li>
+        <li class="nav-item"><button class="tab-btn" data-status="CANCELADO">Cancelados</button></li>
+        <li class="nav-item"><button class="tab-btn" data-status="REEMBOLSADO">Reembolsados</button></li>
+    </ul>
+
+    <div class="table-responsive">
+        <table class="table align-middle" style="color: var(--text);">
+            <thead>
+                <tr class="mono text-muted-custom" style="font-size: .78rem; text-transform: uppercase; letter-spacing: .04em;">
+                    <th>ID</th>
+                    <th>Agendamento</th>
+                    <th>Valor</th>
+                    <th>Método</th>
+                    <th>Registrado em</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaPagamentos">
+                <tr><td colspan="6" class="text-muted-custom">Carregando...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal cancelar pagamento -->
+<div class="modal fade" id="modalCancelarPagamento" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background: var(--bg-elevated); border: 1px solid var(--line); color: var(--text);">
+            <div class="modal-header" style="border-color: var(--line);">
+                <h5 class="modal-title">Cancelar pagamento</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body form-barbearia">
+                <label for="motivoCancelarPagamento">Motivo</label>
+                <textarea class="form-control" id="motivoCancelarPagamento" rows="3"></textarea>
+            </div>
+            <div class="modal-footer" style="border-color: var(--line);">
+                <button type="button" class="btn btn-outline-brass" data-bs-dismiss="modal">Voltar</button>
+                <button type="button" class="btn btn-danger-custom" id="btnConfirmarCancelarPagamento">Confirmar cancelamento</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.tab-btn {
+    background: none; border: none; font-family: var(--font-display);
+    text-transform: uppercase; letter-spacing: .05em; font-size: .85rem;
+    color: var(--text-muted); border-bottom: 2px solid transparent; padding: .6rem 1rem;
+}
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/config.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/admin-api.js"></script>
+<script src="../../js/admin-pagamentos.js"></script>
+</body>
+</html>

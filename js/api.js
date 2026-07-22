@@ -68,6 +68,26 @@ async function apiCancelarAgendamento(id, motivo) {
     return parseJsonSafe(res);
 }
 
+// ---------- Pagamentos ----------
+async function apiBuscarPagamentoPorAgendamento(agendamentoId) {
+    const res = await fetchWithAuth(`${API_URL}/pagamentos/agendamento/${agendamentoId}`);
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error('Não foi possível carregar o pagamento');
+    return res.json();
+}
+
+async function apiRegistrarPagamento(payload) {
+    const res = await fetchWithAuth(`${API_URL}/pagamentos`, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+        const erro = await parseJsonSafe(res);
+        throw new Error(erro?.message || 'Não foi possível registrar o pagamento');
+    }
+    return res.json();
+}
+
 window.apiClienteLogado = apiClienteLogado;
 window.apiListarServicosAtivos = apiListarServicosAtivos;
 window.apiListarProfissionaisAtivos = apiListarProfissionaisAtivos;
@@ -76,3 +96,5 @@ window.apiCriarAgendamento = apiCriarAgendamento;
 window.apiListarAgendamentosFuturos = apiListarAgendamentosFuturos;
 window.apiListarAgendamentosPassados = apiListarAgendamentosPassados;
 window.apiCancelarAgendamento = apiCancelarAgendamento;
+window.apiBuscarPagamentoPorAgendamento = apiBuscarPagamentoPorAgendamento;
+window.apiRegistrarPagamento = apiRegistrarPagamento;

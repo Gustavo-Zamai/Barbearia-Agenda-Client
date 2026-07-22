@@ -71,6 +71,47 @@ function exigirAdmin() {
     }
 }
 
+// ---------- Pagamentos (admin) ----------
+async function adminApiListarPagamentosPorStatus(status) {
+    const res = await fetchWithAuth(`${API_URL}/pagamentos/status/${status}`);
+    if (!res.ok) throw new Error('Não foi possível carregar os pagamentos');
+    return res.json();
+}
+
+async function adminApiListarPagamentosPendentesAntigos() {
+    const res = await fetchWithAuth(`${API_URL}/pagamentos/pendentes`);
+    if (!res.ok) throw new Error('Não foi possível carregar os pagamentos pendentes');
+    return res.json();
+}
+
+async function adminApiConfirmarPagamento(id) {
+    const res = await fetchWithAuth(`${API_URL}/pagamentos/${id}/confirmar`, { method: 'PATCH' });
+    if (!res.ok) {
+        const erro = await parseJsonSafe(res);
+        throw new Error(erro?.message || 'Não foi possível confirmar o pagamento');
+    }
+    return res.json();
+}
+
+async function adminApiCancelarPagamento(id, motivo) {
+    const params = new URLSearchParams({ motivo });
+    const res = await fetchWithAuth(`${API_URL}/pagamentos/${id}/cancelar?${params}`, { method: 'PATCH' });
+    if (!res.ok) {
+        const erro = await parseJsonSafe(res);
+        throw new Error(erro?.message || 'Não foi possível cancelar o pagamento');
+    }
+    return parseJsonSafe(res);
+}
+
+async function adminApiReembolsarPagamento(id) {
+    const res = await fetchWithAuth(`${API_URL}/pagamentos/${id}/reembolsar`, { method: 'PATCH' });
+    if (!res.ok) {
+        const erro = await parseJsonSafe(res);
+        throw new Error(erro?.message || 'Não foi possível reembolsar o pagamento');
+    }
+    return res.json();
+}
+
 window.adminApiMetricas = adminApiMetricas;
 window.adminApiFaturamento = adminApiFaturamento;
 window.adminApiAgendamentosHoje = adminApiAgendamentosHoje;
@@ -78,4 +119,9 @@ window.adminApiListarAgendamentos = adminApiListarAgendamentos;
 window.adminApiListarProfissionais = adminApiListarProfissionais;
 window.adminApiCadastrarProfissional = adminApiCadastrarProfissional;
 window.adminApiAlterarStatusProfissional = adminApiAlterarStatusProfissional;
+window.adminApiListarPagamentosPorStatus = adminApiListarPagamentosPorStatus;
+window.adminApiListarPagamentosPendentesAntigos = adminApiListarPagamentosPendentesAntigos;
+window.adminApiConfirmarPagamento = adminApiConfirmarPagamento;
+window.adminApiCancelarPagamento = adminApiCancelarPagamento;
+window.adminApiReembolsarPagamento = adminApiReembolsarPagamento;
 window.exigirAdmin = exigirAdmin;

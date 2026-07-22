@@ -83,6 +83,39 @@
     </div>
 </div>
 
+<!-- Modal pagar -->
+<div class="modal fade" id="modalPagamento" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background: var(--bg-elevated); border: 1px solid var(--line); color: var(--text);">
+            <div class="modal-header" style="border-color: var(--line);">
+                <h5 class="modal-title">Registrar pagamento</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body form-barbearia">
+                <div class="text-center mb-4">
+                    <div class="pick-sub">Valor a pagar</div>
+                    <div class="pick-price mono" style="font-size: 1.8rem;" id="valorPagamento">R$ —</div>
+                </div>
+                <label for="metodoPagamento">Forma de pagamento</label>
+                <select class="form-select" id="metodoPagamento">
+                    <option value="PIX">Pix</option>
+                    <option value="CARTAO_CREDITO">Cartão de crédito</option>
+                    <option value="CARTAO_DEBITO">Cartão de débito</option>
+                    <option value="DINHEIRO">Dinheiro</option>
+                    <option value="TRANSFERENCIA">Transferência</option>
+                </select>
+                <p class="text-muted-custom mt-3 mb-0" style="font-size: .85rem;">
+                    O pagamento fica registrado como pendente até a confirmação da barbearia.
+                </p>
+            </div>
+            <div class="modal-footer" style="border-color: var(--line);">
+                <button type="button" class="btn btn-outline-brass" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-brass" id="btnConfirmarPagamento">Confirmar pagamento</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="../js/config.js"></script>
 <script src="../js/auth.js"></script>

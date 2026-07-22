@@ -48,6 +48,7 @@ function criarTicket(agendamento, permiteCancelar) {
             </div>
             <div class="ticket-actions">
                 ${podeCancel ? `<button class="btn btn-danger-custom btn-cancelar" data-id="${agendamento.id}">Cancelar</button>` : ''}
+                <span class="pagamento-area" data-agendamento-id="${agendamento.id}" data-preco="${agendamento.precoTotal}"></span>
                 <span class="stamp ${statusClass}">${statusLabel}</span>
             </div>
         </div>
@@ -75,6 +76,69 @@ function renderLista(container, agendamentos, permiteCancelar, mensagemVazio) {
     container.querySelectorAll('.btn-cancelar').forEach(btn => {
         btn.addEventListener('click', () => abrirModalCancelar(btn.dataset.id));
     });
+
+    carregarStatusPagamentos(container);
+}
+
+const PAGAMENTO_STATUS_LABEL = {
+    PENDENTE: 'Pagamento pendente',
+    PAGO: 'Pago',
+    CANCELADO: 'Pagamento cancelado',
+    REEMBOLSADO: 'Reembolsado'
+};
+
+async function carregarStatusPagamentos(container) {
+    const areas = container.querySelectorAll('.pagamento-area');
+    for (const area of areas) {
+        const agendamentoId = area.dataset.agendamentoId;
+        try {
+            const pagamento = await apiBuscarPagamentoPorAgendamento(agendamentoId);
+            if (!pagamento) {
+                area.innerHTML = `<button class="btn btn-outline-brass btn-sm btn-pagar" data-id="${agendamentoId}" data-preco="${area.dataset.preco}">Pagar</button>`;
+                area.querySelector('.btn-pagar').addEventListener('click', () => abrirModalPagamento(agendamentoId, area.dataset.preco));
+            } else {
+                const classe = 'stamp-' + (pagamento.status === 'PAGO' ? 'confirmado' : pagamento.status === 'PENDENTE' ? 'pendente' : 'cancelado');
+                area.innerHTML = `<span class="stamp ${classe}">${PAGAMENTO_STATUS_LABEL[pagamento.status] || pagamento.status}</span>`;
+            }
+        } catch (err) {
+            area.innerHTML = '';
+        }
+    }
+}
+
+let agendamentoParaPagar = null;
+let modalPagamento = null;
+
+function abrirModalPagamento(agendamentoId, preco) {
+    agendamentoParaPagar = agendamentoId;
+    document.getElementById('valorPagamento').textContent = formatarMoeda(preco);
+    document.getElementById('metodoPagamento').value = 'PIX';
+    modalPagamento.show();
+}
+
+async function confirmarPagamento() {
+    const metodo = document.getElementById('metodoPagamento').value;
+    const btn = document.getElementById('btnConfirmarPagamento');
+    const area = document.querySelector(`.pagamento-area[data-agendamento-id="${agendamentoParaPagar}"]`);
+    const preco = area.dataset.preco;
+
+    btn.disabled = true;
+    btn.textContent = 'Registrando...';
+
+    try {
+        await apiRegistrarPagamento({
+            agendamentoId: Number(agendamentoParaPagar),
+            valor: Number(preco),
+            metodo: metodo
+        });
+        modalPagamento.hide();
+        area.innerHTML = `<span class="stamp stamp-pendente">Pagamento pendente</span>`;
+    } catch (err) {
+        alert(err.message);
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Confirmar pagamento';
+    }
 }
 
 function abrirModalCancelar(id) {
@@ -151,6 +215,9 @@ function mostrarAba(aba) {
 document.addEventListener('DOMContentLoaded', async () => {
     modalCancelar = new bootstrap.Modal(document.getElementById('modalCancelar'));
     document.getElementById('btnConfirmarCancelamento').addEventListener('click', confirmarCancelamento);
+
+    modalPagamento = new bootstrap.Modal(document.getElementById('modalPagamento'));
+    document.getElementById('btnConfirmarPagamento').addEventListener('click', confirmarPagamento);
 
     const usuario = getCurrentUser();
     if (usuario?.nome) {
